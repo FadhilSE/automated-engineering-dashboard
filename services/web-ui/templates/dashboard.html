@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% set title = "Dashboard" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+  <div>
+    <h2 class="mb-1">Engineering Dashboard</h2>
+    <div class="text-muted">A quick view of project health, workload, and deadlines.</div>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-primary" href="/projects">Manage Projects</a>
+    <button class="btn btn-outline-secondary" onclick="loadDashboardSummary()">Refresh</button>
+  </div>
+</div>
+
+<div id="dashboardAlert" class="small mb-3"></div>
+
+<div class="row g-3 mb-3" id="dashboardMetricsRow">
+  <div class="col-md-6 col-xl-3"><div class="card metric-card shadow-sm"><div class="card-body"><div class="soft-muted small">Projects</div><div class="stat-number" id="metricProjects">—</div></div></div></div>
+  <div class="col-md-6 col-xl-3"><div class="card metric-card shadow-sm"><div class="card-body"><div class="soft-muted small">Tasks</div><div class="stat-number" id="metricTasks">—</div></div></div></div>
+  <div class="col-md-6 col-xl-3"><div class="card metric-card shadow-sm"><div class="card-body"><div class="soft-muted small">Documents</div><div class="stat-number" id="metricDocs">—</div></div></div></div>
+  <div class="col-md-6 col-xl-3"><div class="card metric-card shadow-sm"><div class="card-body"><div class="soft-muted small">Overall Progress</div><div class="stat-number" id="metricProgress">—</div></div></div></div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Project Snapshot</h5>
+          <span class="small text-muted" id="dashboardProjectsCount"></span>
+        </div>
+        <div id="dashboardProjectsGrid" class="row g-3"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow-sm border-0 mb-3">
+      <div class="card-body">
+        <h5 class="mb-3">Task Breakdown</h5>
+        <div class="small mb-2 d-flex justify-content-between"><span>TODO</span><strong id="dashTodo">—</strong></div>
+        <div class="small mb-2 d-flex justify-content-between"><span>IN_PROGRESS</span><strong id="dashInProgress">—</strong></div>
+        <div class="small mb-2 d-flex justify-content-between"><span>DONE</span><strong id="dashDone">—</strong></div>
+        <div class="small d-flex justify-content-between"><span>Overdue</span><strong class="text-danger" id="dashOverdue">—</strong></div>
+      </div>
+    </div>
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Upcoming Deadlines</h5>
+          <span class="small text-muted">Top 8</span>
+        </div>
+        <div id="dashboardDeadlines"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

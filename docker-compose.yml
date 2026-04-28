@@ -1,0 +1,136 @@
+services:
+  web-ui:
+    build: ./services/web-ui
+    ports: ["3000:3000"]
+    environment:
+      GATEWAY_BASE: http://api-gateway:8080
+    depends_on:
+      - api-gateway
+
+  api-gateway:
+    build: ./services/api-gateway
+    ports: ["8080:8080"]
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:5001
+      PROJECT_SERVICE_URL: http://project-service:5002
+      TASK_SERVICE_URL: http://task-service:5003
+      DOCS_SERVICE_URL: http://docs-service:5004
+      GIT_SERVICE_URL: http://git-service:5005
+      ANALYTICS_SERVICE_URL: http://analytics-service:5006
+    depends_on:
+      - auth-service
+      - project-service
+      - task-service
+      - docs-service
+      - git-service
+      - analytics-service
+
+  auth-service:
+    build: ./services/auth-service
+    ports: ["5001:5001"]
+    environment:
+      DATABASE_URL: postgresql://auth_user:auth_pass@auth-db:5432/auth_db
+      JWT_SECRET: dev_secret_change_me
+    depends_on: [auth-db]
+
+  auth-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+      POSTGRES_DB: auth_db
+    volumes: [auth_db_data:/var/lib/postgresql/data]
+    ports: ["5433:5432"]
+
+  project-service:
+    build: ./services/project-service
+    ports: ["5002:5002"]
+    environment:
+      DATABASE_URL: postgresql://proj_user:proj_pass@project-db:5432/project_db
+      AUTH_SERVICE_URL: http://auth-service:5001
+    depends_on: [project-db, auth-service]
+
+  project-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: proj_user
+      POSTGRES_PASSWORD: proj_pass
+      POSTGRES_DB: project_db
+    volumes: [project_db_data:/var/lib/postgresql/data]
+    ports: ["5434:5432"]
+
+  task-service:
+    build: ./services/task-service
+    ports: ["5003:5003"]
+    environment:
+      DATABASE_URL: postgresql://task_user:task_pass@task-db:5432/task_db
+      AUTH_SERVICE_URL: http://auth-service:5001
+      PROJECT_SERVICE_URL: http://project-service:5002
+    depends_on: [task-db, auth-service, project-service]
+
+  task-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: task_user
+      POSTGRES_PASSWORD: task_pass
+      POSTGRES_DB: task_db
+    volumes: [task_db_data:/var/lib/postgresql/data]
+    ports: ["5435:5432"]
+
+  docs-service:
+    build: ./services/docs-service
+    ports: ["5004:5004"]
+    environment:
+      DATABASE_URL: postgresql://docs_user:docs_pass@docs-db:5432/docs_db
+      AUTH_SERVICE_URL: http://auth-service:5001
+      PROJECT_SERVICE_URL: http://project-service:5002
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - docs_storage:/data/uploads
+    depends_on: [docs-db, auth-service, project-service]
+
+  docs-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: docs_user
+      POSTGRES_PASSWORD: docs_pass
+      POSTGRES_DB: docs_db
+    volumes: [docs_db_data:/var/lib/postgresql/data]
+    ports: ["5436:5432"]
+
+  git-service:
+    build: ./services/git-service
+    ports: ["5005:5005"]
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:5001
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+    depends_on: [auth-service]
+
+  analytics-service:
+    build: ./services/analytics-service
+    ports: ["5006:5006"]
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:5001
+      PROJECT_SERVICE_URL: http://project-service:5002
+      TASK_SERVICE_URL: http://task-service:5003
+      DOCS_SERVICE_URL: http://docs-service:5004
+      GIT_SERVICE_URL: http://git-service:5005
+      DATABASE_URL: postgresql://ana_user:ana_pass@analytics-db:5432/analytics_db
+    depends_on: [analytics-db, auth-service, project-service, task-service, docs-service, git-service]
+
+  analytics-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ana_user
+      POSTGRES_PASSWORD: ana_pass
+      POSTGRES_DB: analytics_db
+    volumes: [analytics_db_data:/var/lib/postgresql/data]
+    ports: ["5437:5432"]
+
+volumes:
+  auth_db_data:
+  project_db_data:
+  task_db_data:
+  docs_db_data:
+  analytics_db_data:
+  docs_storage:

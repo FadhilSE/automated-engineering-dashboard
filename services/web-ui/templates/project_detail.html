@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% set title = "Project" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+  <div>
+    <h3 class="mb-0" id="projectTitle">Project #{{ project_id }}</h3>
+    <div class="text-muted small" id="projectMeta">Loading...</div>
+    <div class="small mt-1" id="projectDescription"></div>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-secondary" href="/dashboard">Dashboard</a>
+    <a class="btn btn-outline-secondary" href="/projects">Projects</a>
+    <button class="btn btn-outline-primary" onclick="loadProjectAll({{ project_id }})">Refresh</button>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">Metrics</h5>
+        <div id="metricsBox" class="small text-muted">Loading...</div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mt-3 border-0">
+      <div class="card-body">
+        <h5 class="card-title">GitHub Integration</h5>
+        <input id="projectRepo" class="form-control mb-2" placeholder="owner/repo or GitHub URL">
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary btn-sm" onclick="saveProjectRepo({{ project_id }})">Save Repo</button>
+          <button class="btn btn-outline-secondary btn-sm" onclick="loadRepoPanel({{ project_id }})">Refresh Commits</button>
+        </div>
+        <div id="projectRepoMsg" class="small mt-2"></div>
+        <hr>
+        <div id="repoCommitsBox" class="small text-muted">No repository connected yet.</div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mt-3 border-0">
+      <div class="card-body">
+        <h5 class="card-title">Add Task</h5>
+        <input id="taskTitle" class="form-control mb-2" placeholder="Task title (required)">
+        <input id="taskDue" class="form-control mb-2" placeholder="Due date (YYYY-MM-DD)">
+        <select id="taskStatus" class="form-select mb-2">
+          <option value="TODO">TODO</option>
+          <option value="IN_PROGRESS">IN_PROGRESS</option>
+          <option value="DONE">DONE</option>
+        </select>
+        <textarea id="taskDesc" class="form-control mb-2" rows="2" placeholder="Description (optional)"></textarea>
+        <button class="btn btn-primary btn-sm" onclick="createTask({{ project_id }})">Create Task</button>
+        <div id="taskMsg" class="small mt-2"></div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mt-3 border-0">
+      <div class="card-body">
+        <h5 class="card-title">Add Document</h5>
+        <div class="small text-muted mb-2">Upload a file OR add a link.</div>
+        <input id="docTitle" class="form-control mb-2" placeholder="Document title">
+        <input id="docLink" class="form-control mb-2" placeholder="Link URL (optional)">
+        <input id="docFile" type="file" class="form-control mb-2">
+        <button class="btn btn-primary btn-sm" onclick="addDoc({{ project_id }})">Add</button>
+        <div id="docMsg" class="small mt-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Tasks</h5>
+          <span class="small text-muted" id="tasksCount"></span>
+        </div>
+        <hr/>
+        <div class="small text-muted mb-2">Update task status or due date, then save or delete each row.</div>
+        <div id="tasksTableWrap"></div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mt-3 border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Documents</h5>
+          <span class="small text-muted" id="docsCount"></span>
+        </div>
+        <hr/>
+        <div id="docsList" class="list-group"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.PROJECT_ID = {{ project_id }};
+</script>
+{% endblock %}
