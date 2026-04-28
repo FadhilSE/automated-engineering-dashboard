@@ -1,60 +1,121 @@
-# Automated Engineering Dashboard
+# 🚀 Automated Engineering Dashboard
 
-A full-stack microservices platform for project tracking, analytics, tasks, document management, and GitHub integration.
+![GitHub Repo stars](https://img.shields.io/github/stars/FadhilSE/automated-engineering-dashboard?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/FadhilSE/automated-engineering-dashboard?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/FadhilSE/automated-engineering-dashboard?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-Flask-blue?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-Microservices-blue?style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge)
 
-## Features
+---
 
-- User Authentication
-- Project Management
-- Task Tracking
-- Dashboard Metrics
-- Progress Visualization
-- Document Upload System
-- GitHub Commit Integration
-- Dark Mode
-- Search Tasks
+## 📌 Overview
+
+A full-stack **microservices engineering management platform** designed to centralize project workflows into one modern dashboard.
+
+It enables teams to manage:
+
+✅ Projects  
+✅ Tasks  
+✅ Documents  
+✅ Deadlines  
+✅ Analytics  
+✅ GitHub Activity  
+
+---
+
+## 🖼️ Dashboard Preview
+
+<img width="100%" alt="Dashboard" src="https://github.com/user-attachments/assets/2b674a64-88f4-4fbd-8d1a-ce9cdd68ac02" />
+
+---
+
+## ✨ Core Features
+
+### 🔐 Authentication
+- User registration
+- Secure login system
+
+### 📁 Project Management
+- Create/manage projects
+- Ownership roles
+- Project summaries
+
+### ✅ Task Management
+- Task CRUD operations
+- Status tracking
+- Due dates
+- Overdue alerts
+
+### 📄 Document Center
+- Upload files
+- Download files
+- Delete files
+
+### 📊 Analytics Dashboard
+- Project progress bars
+- Task breakdown
+- Upcoming deadlines
+- Summary metrics
+
+### 🔗 GitHub Integration
+- Connect repository
+- View recent commits
+- Commit metadata
+
+### 🌙 UI Enhancements
+- Dark mode
+- Search tasks
 - Notifications
+- Charts
 
-## Microservices Architecture
+---
 
-- API Gateway
-- Auth Service
-- Project Service
-- Task Service
-- Docs Service
-- Analytics Service
-- Git Service
-- Web UI
+## 🏗️ Architecture
 
-## Tech Stack
+```text
+Browser
+   ↓
+Web UI
+   ↓
+API Gateway
+   ↓
+Auth Service
+Project Service
+Task Service
+Docs Service
+Analytics Service
+Git Service
+   ↓
+PostgreSQL
 
-- Python Flask
-- PostgreSQL
-- Docker Compose
-- JavaScript / HTML / CSS
-- GitHub API
-- AWS Ready
+---
 
-## Run Locally
+## 🛠️ Tech Stack
 
-```bash
-docker compose up --build
+| Layer | Technology |
+|------|------------|
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Python Flask |
+| Database | PostgreSQL |
+| Containers | Docker Compose |
+| APIs | GitHub API |
+| Cloud Ready | AWS EC2 / ECS |
+
+---
+
+📈 Future Enhancements
+CI/CD Pipeline
+AWS Cloud Deployment
+Team Collaboration Roles
+AI Project Insights
+Advanced BI Charts
 
 
-Then open:
-http://localhost:3000
-
-
-##  Suggested Demo Flow
-
-
-Register / Login
-Create a Project
-Add Tasks
-Upload Documents
-View Dashboard Metrics
-Connect GitHub Repo
-Show Recent Commits
-
-Author
+👨‍💻 Author
 Fadhil Al Salihi
+Software Engineer | Cloud | Data | Full Stack
+
+⭐ If you like this project
+Give it a star.
+
