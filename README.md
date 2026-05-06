@@ -21,7 +21,6 @@ It enables teams to manage:
 ✅ Deadlines  
 ✅ Analytics  
 ✅ GitHub Activity  
-✅
 ---
 
 ## 🖼️ Dashboard Preview
@@ -104,7 +103,7 @@ PostgreSQL
 
 ---
 
-📈 Future Enhancements
+## 📈 Future Enhancements
 CI/CD Pipeline
 AWS Cloud Deployment
 Team Collaboration Roles
@@ -119,3 +118,10 @@ Software Engineer | Cloud | Data | Full Stack
 ⭐ If you like this project
 Give it a star.
 
+
+
+Author
+Fadhil Al Salihi
+
+## Development Workflow
+This project uses feature branches and pull requests to organize backend, frontend, documents, and testing work.
