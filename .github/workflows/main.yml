@@ -1,0 +1,24 @@
+name: Engineering Dashboard CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  repo-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check repository files
+        run: |
+          echo "Checking project files..."
+          ls -la
+          test -f README.md
+          test -f docker-compose.yml
+          test -d services
+          echo "Repository structure looks good."
