@@ -21,7 +21,7 @@ It enables teams to manage:
 ✅ Deadlines  
 ✅ Analytics  
 ✅ GitHub Activity  
-
+✅
 ---
 
 ## 🖼️ Dashboard Preview
