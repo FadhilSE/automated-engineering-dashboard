@@ -58,3 +58,5 @@ Show Recent Commits
 
 Author
 Fadhil Al Salihi
+## Development Workflow
+This project uses feature branches and pull requests to organize backend, frontend, documents, and testing work.
